@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'me.tatarka.retrolambda' //1.Lambda表达式配置
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.0'
@@ -10,7 +10,24 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti -fexceptions"
+            }
+        }
+        ndk {
+            abiFilters "armeabi","armeabi-v7a","x86"
+        }
 
+    }
+    //2.Lamdba表达式配置
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    //3.Lamdba表达式配置
+    retrolambda {
+        javaVersion JavaVersion.VERSION_1_6
     }
     buildTypes {
         release {
@@ -19,6 +36,11 @@ android {
         }
     }
     productFlavors {
+    }
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
     }
 }
 
@@ -29,4 +51,23 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.+'
     testCompile 'junit:junit:4.12'
+
+
+
+    /**
+     * 下载引擎
+     * */
+    compile 'com.liulishuo.filedownloader:library:1.6.9'//下载引擎
+
+    /**
+     * RXAndroid RXjava库
+     * */
+    compile 'io.reactivex:rxandroid:1.1.0'/*RXAndroid*/
+    compile 'io.reactivex:rxjava:1.1.0'/*RXjava*/
+
+    /**
+     * 运行时权限处理库
+     * */
+    compile "com.github.hotchemi:permissionsdispatcher:3.1.0"
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
 }

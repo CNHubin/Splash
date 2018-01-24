@@ -10,7 +10,14 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
+        //1.使用Lambda表达式的配置
+//        jackOptions.enabled = true
+
+    }/*
+    compileOptions { //lamabda 表达式配置
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }*/
     buildTypes {
         release {
             minifyEnabled false
@@ -29,4 +36,17 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+    compile project(':library')
+
+
+
+    /**
+     * retrofit相关库
+     * */
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4' // retrofit
+    compile 'com.google.code.gson:gson:2.5' // gson
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
 }
