@@ -1,4 +1,4 @@
-//apply plugin: 'com.android.library'
+apply plugin: 'com.android.library'
 //apply plugin: 'me.tatarka.retrolambda' //1.Lambda表达式配置
 android {
     compileSdkVersion 26
