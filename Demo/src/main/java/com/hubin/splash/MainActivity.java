@@ -11,8 +11,8 @@ import hubin.splash.BaseSplashActivity;
 import hubin.splash.utils.LogUtils;
 
 import static com.hubin.splash.Config.APPID;
-import static com.hubin.splash.Config.MAP_URL_BASE;
-import static com.hubin.splash.Config.MAP_URL_DOWNLOAD_BASE;
+import static com.hubin.splash.Config.URL_BASE;
+import static com.hubin.splash.Config.URL_DOWNLOAD_BASE;
 import static com.hubin.splash.Config.SERVER_APPID;
 import static com.hubin.splash.Config.SERVER_VERSIONCODE;
 
@@ -27,7 +27,7 @@ public class MainActivity extends BaseSplashActivity {
 
     @Override
     public void getInternetInfo() {
-        HttpProxy<HttpResponse> mHttpProxy = new HttpProxy<>(MAP_URL_BASE);
+        HttpProxy<HttpResponse> mHttpProxy = new HttpProxy<>(URL_BASE);
         mHttpProxy.setOnHttpListener(mHttpListener);//网络请求结果回掉
         //根据appid 请求版本信息
         HashMap<String, String> mGetParam = new HashMap<>();
@@ -45,7 +45,7 @@ public class MainActivity extends BaseSplashActivity {
         public void onHttpSuccess(HttpResponse bean) {
             LogUtils.d("onHttpSuccess  D : 请求成功"+bean.response);
             mVersionInfo = bean.version;
-            String  patchUrl = MAP_URL_DOWNLOAD_BASE+ mVersionInfo.url; //补丁下载地址拼接
+            String  patchUrl = URL_DOWNLOAD_BASE + mVersionInfo.url; //补丁下载地址拼接
 
             //检查版本下载更新
             updateVersion(mVersionInfo.versionname,mVersionInfo.newversion,patchUrl);

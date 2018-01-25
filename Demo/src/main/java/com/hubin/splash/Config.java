@@ -17,8 +17,7 @@ public class Config {
 
     public static final String APPID ="1001"; //apk在服务端的编号
 
-    public static final String MAP_URL_BASE ="http://verfy.taiyaoguangdian.com/";//服务器根路径
-    public static final String MAP_URL_CHILD ="taiyaofile/version";//服务器二级路径
-    public static final String MAP_URL_DOWNLOAD_BASE ="http://verfy.taiyaoguangdian.com/taiyaofile/";//下载服务器根路径
+    public static final String URL_BASE ="http://verfy.taiyaoguangdian.com/";//服务器根路径
+    public static final String URL_DOWNLOAD_BASE ="http://verfy.taiyaoguangdian.com/taiyaofile/";//下载服务器根路径
 
 }
