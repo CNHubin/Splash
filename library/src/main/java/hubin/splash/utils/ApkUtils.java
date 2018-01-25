@@ -10,13 +10,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import java.io.File;
-
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * APK安装或者更新等操作的工具类
@@ -113,7 +108,7 @@ public class ApkUtils {
 
     //通过Root方式安装
     private static void installRoot(Context context, String apkPath) {
-        Observable.just(apkPath)
+    /*    Observable.just(apkPath)
                 .map(mApkPath -> "pm install -r " + mApkPath)
                 .map(SystemManager::RootCommand)
                 .subscribeOn(Schedulers.io())
@@ -125,6 +120,6 @@ public class ApkUtils {
                         Toast.makeText(context, "root权限获取失败,尝试普通安装", Toast.LENGTH_SHORT).show();
                         installApk(context,apkPath);
                     }
-                });
+                });*/
     }
 }

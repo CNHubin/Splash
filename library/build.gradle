@@ -1,5 +1,5 @@
-apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda' //1.Lambda表达式配置
+//apply plugin: 'com.android.library'
+//apply plugin: 'me.tatarka.retrolambda' //1.Lambda表达式配置
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.0'
@@ -21,14 +21,14 @@ android {
 
     }
     //2.Lamdba表达式配置
-    compileOptions {
+  /*  compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     //3.Lamdba表达式配置
     retrolambda {
         javaVersion JavaVersion.VERSION_1_6
-    }
+    }*/
     buildTypes {
         release {
             minifyEnabled false
@@ -54,20 +54,13 @@ dependencies {
 
 
 
-    /**
-     * 下载引擎
-     * */
+
     compile 'com.liulishuo.filedownloader:library:1.6.9'//下载引擎
+    compile "com.github.hotchemi:permissionsdispatcher:3.1.0"//运行时权限处理库
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"//运行时权限处理库
 
-    /**
-     * RXAndroid RXjava库
-     * */
-    compile 'io.reactivex:rxandroid:1.1.0'/*RXAndroid*/
-    compile 'io.reactivex:rxjava:1.1.0'/*RXjava*/
+   /* compile 'io.reactivex:rxandroid:1.1.0'*//*RXAndroid*//*
+    compile 'io.reactivex:rxjava:1.1.0'*//*RXjava*/
 
-    /**
-     * 运行时权限处理库
-     * */
-    compile "com.github.hotchemi:permissionsdispatcher:3.1.0"
-    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
+
 }
