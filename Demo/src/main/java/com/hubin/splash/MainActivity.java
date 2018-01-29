@@ -48,7 +48,7 @@ public class MainActivity extends BaseSplashActivity {
             String  patchUrl = URL_DOWNLOAD_BASE + mVersionInfo.url; //补丁下载地址拼接
 
             //检查版本下载更新
-            updateVersion(mVersionInfo.versionname,mVersionInfo.newversion,patchUrl);
+            updateVersion(mVersionInfo.versionname,mVersionInfo.newversion,patchUrl,mVersionInfo.size);
         }
         @Override
         public void onHttpFailure(String errorMsg) {

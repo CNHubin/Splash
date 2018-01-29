@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.DecimalFormat;
 
 import hubin.splash.utils.ApkUtils;
 import hubin.splash.utils.DownLoadProxy;
@@ -110,21 +111,26 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
      * @param newversioncode    服务端版本号
      * @param patchUrl          补丁下载路径
      */
-    protected void updateVersion(String newversionname, int newversioncode, String  patchUrl) {
+    protected void updateVersion(String newversionname, int newversioncode, String  patchUrl,String length) {
         mNewversionname = newversionname;
         mNewversioncode = newversioncode;
         mPatchUrl = patchUrl;
+        String size = length;
+        if (length == null) {
+            size = "0";
+        }
 
         //下载保存路径 并重命名
         mPatchName = mPackageName+mVersionName+"to"+mNewversionname;
         mPathFile = SD_CARD + mPatchName + PATCH_SUFFIX;
         //本地版校验
         if (mVersionCode < mNewversioncode) {
+            //保留2位小数
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("版本更新")
-                    .setMessage("发现新版本是否现在更新？")
+            builder.setTitle("发现新版本")
+                    .setMessage("安装包大小"+b2Mb(size)+"M，是否现在更新？")
                     .setCancelable(false)  //点击空白处不消失
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("现在更新", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             //SD卡状态
                             if (SDCardHelper.isSDCardMounted()) {//SD卡已挂载
@@ -137,7 +143,7 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
                             }
                         }
                     })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             LogUtils.d("onCreate  D : 暂时不更新");
@@ -152,6 +158,8 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
     }
 
 
+
+
     //APK下载监听
     private DownLoadProxy.DownloadListener mDownloadListener = new DownLoadProxy.DownloadListener() {
         /**
@@ -163,7 +171,6 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
          */
         @Override
         public void connected(String etag, boolean isContinue, int soFarBytes, int totalBytes) {
-//            mProgressGroup.setVisibility(View.VISIBLE);
             startDownLoad(isContinue);
         }
         /**
@@ -173,7 +180,6 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
         @Override
         public void completed(String patch) {
             //合并补丁
-//            mProgressGroup.setVisibility(View.GONE);
             mOldfile = ApkUtils.getSourceApkPath(BaseSplashActivity.this, getPackageName());
             mNewFile = SD_CARD+mPackageName+mNewversionname+APK_SUFFIX;
             LogUtils.d("completed  D 补丁路径："+patch+"  旧apk路径："+mOldfile+"  新APK路径："+mNewFile);
@@ -213,13 +219,20 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
          */
         @Override
         public void progress(int progress) {
-          /*  mProgressText.setText("版本更新:"+progress+"%");
-            mProgressBar.setProgress(progress);*/
-
             downProgress(progress);
         }
 
     };
+
+    /**
+     * 将字节转换为M并保留两位小数
+     * @param size
+     * @return
+     */
+    protected String b2Mb(String size) {
+        DecimalFormat decimalFormat=new DecimalFormat(".00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+        return decimalFormat.format((float)Integer.parseInt(size)/1024/1024);
+    }
 
      //获取服务器最新版本信息
     public abstract void getInternetInfo();

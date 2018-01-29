@@ -30,6 +30,7 @@ public class HttpResponse {
         public String versionname;//版本名字
         public String publishtime;//发布时间
         public String url; //新版apk下载路径
+        public String size;//更新包大小
 
     }
 }
