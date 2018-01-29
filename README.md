@@ -1,5 +1,5 @@
 # Splash
-导航模块增量更新并下载完成后安装等功能抽取（安装已适配7.0），方便多应用之间模块迁移
+导航模块增量更新等功能抽取，方便多应用之间模块迁移
 
 Step 1. Add the JitPack repository to your build file
 
