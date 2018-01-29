@@ -15,7 +15,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.343906936:Splash:1.0.5@aar'
+	        compile 'com.github.343906936:Splash:1.0.4@aar'
 	        compile 'com.liulishuo.filedownloader:library:1.6.9'//下载引擎
             compile "com.github.hotchemi:permissionsdispatcher:3.1.0"//运行时权限处理库
             annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"//运行时权限处理库
