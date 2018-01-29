@@ -14,7 +14,7 @@
                  android:supportsRtl="true"
     >
 
-
+        <!--android:authorities="hubin.splash.installapk2"-->
         <!--兼容7.0apk安装
         1. exported:必须为false
         2. grantUriPermissions:true，表示授予 URI 临时访问权限。
@@ -22,7 +22,7 @@
         4.指定共享文件的目录,需要在res文件夹中新建xml目录,并且创建file_paths-->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="hubin.splash.installapk"
+            android:authorities="${applicationId}.installProvider"
             android:grantUriPermissions="true"
             android:exported="false">
             <!--元数据-->

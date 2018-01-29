@@ -46,7 +46,6 @@ public class ApkUtils {
     /**
      * 获取已安装Apk文件的源Apk文件
      * 如：/data/app/my.apk
-     *
      * @param context
      * @param packageName
      * @return
@@ -65,29 +64,15 @@ public class ApkUtils {
         return null;
     }
 
+
+
     /**
-     * 通过非Root模式安装APK
-     * @param context
-     * @param apkPath
+     * 安装APK 适配android7.0
+     * @param context  上下文
+     * @param apkPath apk'路径
+     * @param packageName  应用包名
      */
-    public static void installApk(Context context,String apkPath){
-        installApk(context,apkPath,false);
-    }
-    /**
-     * 安装APK
-     * @param context
-     * @param apkPath 要安装的APK
-     * @param rootMode 是否是Root模式
-     */
-    public static void installApk(Context context, String apkPath,boolean rootMode){
-        if (rootMode){
-            installRoot(context,apkPath);
-        }else {
-            installNormal(context,apkPath);
-        }
-    }
-    //普通安装
-    private static void installNormal(Context context,String apkPath) {
+    public static void installNormal(Context context,String apkPath,String packageName) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         //版本在7.0以上是不能直接通过uri访问的
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {//7.0以上版本
@@ -95,7 +80,7 @@ public class ApkUtils {
             // 由于没有在Activity环境下启动Activity,设置下面的标签
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //参数1 上下文, 参数2 Provider主机地址 和配置文件中保持一致   参数3  共享的文件
-            Uri apkUri = FileProvider.getUriForFile(context, "hubin.splash.installapk", file);
+            Uri apkUri = FileProvider.getUriForFile(context, packageName+".installProvider", file);
             //添加这一句表示对目标应用临时授权该Uri所代表的文件
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive");

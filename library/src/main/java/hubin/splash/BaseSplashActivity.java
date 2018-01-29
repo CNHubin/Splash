@@ -186,7 +186,7 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
 
             if (patch(mOldfile, mNewFile, mPathFile) == 0) {
                 LogUtils.d("completed  D : 补丁合并成功");
-                ApkUtils.installApk(BaseSplashActivity.this, mNewFile); //安装apk
+                ApkUtils.installNormal(BaseSplashActivity.this, mNewFile,getPackageName()); //安装apk
             }
         }
 

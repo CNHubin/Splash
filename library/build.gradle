@@ -53,8 +53,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
 
-
-
     compile 'com.liulishuo.filedownloader:library:1.6.9'//下载引擎
     compile "com.github.hotchemi:permissionsdispatcher:3.1.0"//运行时权限处理库
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"//运行时权限处理库
