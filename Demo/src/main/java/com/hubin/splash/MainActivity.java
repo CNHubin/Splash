@@ -71,8 +71,8 @@ public class MainActivity extends BaseSplashActivity {
      * @param progress
      */
     @Override
-    protected void downProgress(int progress) {
-        LogUtils.d("progress  D : 下载进度："+progress);
+    protected void downProgress(int progress, int speed) {
+        LogUtils.d("progress  D : 下载进度："+progress+" 速度："+speed+"KB/s");
     }
 
 

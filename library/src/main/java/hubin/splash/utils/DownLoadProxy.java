@@ -57,7 +57,7 @@ public class DownLoadProxy {
                         LogUtils.i("progress  I : 下载进度回调soFarBytes = " + soFarBytes + " totalBytes=" +
                                 totalBytes+" 进度:"+(soFarBytes*100)/totalBytes+"%");
                         if (mDownloadListener != null) {
-                            mDownloadListener.progress((soFarBytes*100)/totalBytes);
+                            mDownloadListener.progress((soFarBytes*100)/totalBytes,task.getSpeed());
                         }
                     }
 
@@ -77,7 +77,7 @@ public class DownLoadProxy {
                     protected void completed(BaseDownloadTask task) {//下载完成后
 //                        SystemManager.setPermission(path);//提升文件读写权限
                         if (mDownloadListener != null) {
-                            mDownloadListener.progress(100);
+                            mDownloadListener.progress(100,task.getSpeed());
                             mDownloadListener.completed(path);//回调
                         }
                     }
@@ -121,9 +121,10 @@ public class DownLoadProxy {
 
         /**
          * 下载进度回掉  百分比
-         * @param progress
+         * @param progress    百分比
+         * @param speed  下载速度
          */
-        void progress(int progress);
+        void progress(int progress, int speed);
 
         /**
          * 开始下载

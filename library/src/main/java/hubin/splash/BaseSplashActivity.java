@@ -218,8 +218,8 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
          * @param progress
          */
         @Override
-        public void progress(int progress) {
-            downProgress(progress);
+        public void progress(int progress, int speed) {
+            downProgress(progress,speed);
         }
 
     };
@@ -247,7 +247,7 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
      * 下载进度回调
      * @param progress
      */
-    protected abstract void downProgress(int progress);
+    protected abstract void downProgress(int progress, int speed);
 
     /**
      * 去下一页
