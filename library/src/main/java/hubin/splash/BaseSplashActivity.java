@@ -23,9 +23,9 @@ import java.text.DecimalFormat;
 
 import hubin.splash.utils.ApkUtils;
 import hubin.splash.utils.DownLoadProxy;
-import hubin.splash.utils.LogUtils;
+import hubin.splash.utils.LogHelper;
 import hubin.splash.utils.SDCardHelper;
-import hubin.splash.utils.ToastUtils;
+import hubin.splash.utils.ToastHelper;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -61,7 +61,7 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
     void downLoaderApk() {
         //使用FileDownloader下载引擎 下载apk
-        LogUtils.d("onCreate  D : 保存路径：" + mPathFile);
+        LogHelper.d("onCreate  D : 保存路径：" + mPathFile);
         if (mDownLoadProxy == null) {
             mDownLoadProxy = new DownLoadProxy();
             mDownLoadProxy.setOnDownloadListener(mDownloadListener);//下载监听
@@ -72,7 +72,7 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
     // 用户拒绝授权回调
     @OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE})
     void showDeniedForCamera() {
-        LogUtils.e("showDeniedForCamera E : 用户拒绝授权");
+        LogHelper.e("showDeniedForCamera E : 用户拒绝授权");
         Toast.makeText(this, "请您打开权限", Toast.LENGTH_SHORT).show();
         finish();
     }
@@ -80,8 +80,8 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
     // 用户拒绝并勾选了“不再提醒”
     @OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE})
     void showNeverAskForCamera() {
-        LogUtils.e("showNeverAskForCamera E : 用户永久拒绝了读写权限");
-        ToastUtils.toast(this,"您永久拒绝了外部存储读写权限");
+        LogHelper.e("showNeverAskForCamera E : 用户永久拒绝了读写权限");
+        ToastHelper.toast(this,"您永久拒绝了外部存储读写权限");
         finish();
     }
 
@@ -134,11 +134,11 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int id) {
                             //SD卡状态
                             if (SDCardHelper.isSDCardMounted()) {//SD卡已挂载
-                                LogUtils.d("onCreate  D : 开始更新");
+                                LogHelper.d("onCreate  D : 开始更新");
                                 BaseSplashActivityPermissionsDispatcher.downLoaderApkWithPermissionCheck(BaseSplashActivity.this); //下载
                             } else {
-                                LogUtils.e("onCreate E : SD卡不存在");
-                                ToastUtils.toast(BaseSplashActivity.this,"您的SD卡不存在，无法更新");
+                                LogHelper.e("onCreate E : SD卡不存在");
+                                ToastHelper.toast(BaseSplashActivity.this,"您的SD卡不存在，无法更新");
                                 toNextPage();//去下一页
                             }
                         }
@@ -146,13 +146,13 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
                     .setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            LogUtils.d("onCreate  D : 暂时不更新");
+                            LogHelper.d("onCreate  D : 暂时不更新");
                             toNextPage();//去下一页
                         }
                     })
                     .show();
         } else {
-            LogUtils.d("onCreate  D : 当前已经是最新版本");
+            LogHelper.d("onCreate  D : 当前已经是最新版本");
             toNextPage();//去下一页
         }
     }
@@ -182,10 +182,10 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
             //合并补丁
             mOldfile = ApkUtils.getSourceApkPath(BaseSplashActivity.this, getPackageName());
             mNewFile = SD_CARD+mPackageName+mNewversionname+APK_SUFFIX;
-            LogUtils.d("completed  D 补丁路径："+patch+"  旧apk路径："+mOldfile+"  新APK路径："+mNewFile);
+            LogHelper.d("completed  D 补丁路径："+patch+"  旧apk路径："+mOldfile+"  新APK路径："+mNewFile);
 
             if (patch(mOldfile, mNewFile, mPathFile) == 0) {
-                LogUtils.d("completed  D : 补丁合并成功");
+                LogHelper.d("completed  D : 补丁合并成功");
                 ApkUtils.installNormal(BaseSplashActivity.this, mNewFile,getPackageName()); //安装apk
             }
         }
@@ -197,16 +197,16 @@ public abstract class BaseSplashActivity extends AppCompatActivity {
         @Override
         public void error(Throwable e) {
             String exception = e.toString();
-            LogUtils.e("error E : 下载异常" + exception);
+            LogHelper.e("error E : 下载异常" + exception);
             if (exception.equals("java.io.IOException: Permission denied")) {//没有权限异常
-                ToastUtils.toast(BaseSplashActivity.this,"请打外存储部读写权限");
+                ToastHelper.toast(BaseSplashActivity.this,"请打外存储部读写权限");
                 finish();
             }
             if (exception.startsWith("com.liulishuo.filedownloader.exception" +
                     ".FileDownloadGiveUpRetryException: require rang")) {//断点续传不支持
                 File mFile = new File(mPathFile +TEMP_SUFFIX);
                 if (mFile.exists()) {
-                    LogUtils.d("error  D :不支持断点续传 删除缓存文件");
+                    LogHelper.d("error  D :不支持断点续传 删除缓存文件");
                     mFile.delete();
                     downLoaderApk();//重新下载
                 }

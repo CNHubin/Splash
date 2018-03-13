@@ -30,7 +30,7 @@ public class DownLoadProxy {
     public void downLoaderApk(final Context context, String url, final String path) {
         File mFile = new File(path+ TEMP_SUFFIX);//临时文件路径
         if (mFile.exists()) {
-            LogUtils.e("error  D :不支持断点续传 删除缓存文件");
+            LogHelper.e("error  D :不支持断点续传 删除缓存文件");
             mFile.delete();
         }
         FileDownloader.setup(context);
@@ -40,13 +40,13 @@ public class DownLoadProxy {
                 .setListener(new FileDownloadListener() {
                     @Override
                     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        LogUtils.d("pending  D : 等待，已经进入下载队列soFarBytes="+soFarBytes+" totalBytes="+totalBytes);
+                        LogHelper.d("pending  D : 等待，已经进入下载队列soFarBytes="+soFarBytes+" totalBytes="+totalBytes);
                     }
 
                     @Override
                     protected void connected(BaseDownloadTask task, String etag, boolean isContinue,
                                              int soFarBytes, int totalBytes) {
-                        LogUtils.i("connected  D : 已经连接上etag="+etag+" isContinue="+isContinue+" soFarBytes="+soFarBytes+" totalBytes="+totalBytes);
+                        LogHelper.i("connected  D : 已经连接上etag="+etag+" isContinue="+isContinue+" soFarBytes="+soFarBytes+" totalBytes="+totalBytes);
                         if (mDownloadListener != null) {
                             mDownloadListener.connected(etag,isContinue,soFarBytes,totalBytes);
                         }
@@ -54,7 +54,7 @@ public class DownLoadProxy {
 
                     @Override
                     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        LogUtils.i("progress  I : 下载进度回调soFarBytes = " + soFarBytes + " totalBytes=" +
+                        LogHelper.i("progress  I : 下载进度回调soFarBytes = " + soFarBytes + " totalBytes=" +
                                 totalBytes+" 进度:"+(soFarBytes*100)/totalBytes+"%");
                         if (mDownloadListener != null) {
                             mDownloadListener.progress((soFarBytes*100)/totalBytes,task.getSpeed());
@@ -64,13 +64,13 @@ public class DownLoadProxy {
                     @Override
                     protected void blockComplete(BaseDownloadTask task) {
                         //在完成前同步调用该方法，此时已经下载完成
-                        LogUtils.d("blockComplete  D : 下载完成");
+                        LogHelper.d("blockComplete  D : 下载完成");
                     }
 
                     @Override
                     protected void retry(final BaseDownloadTask task, final Throwable ex, final int
                             retryingTimes, final int soFarBytes) {
-                        LogUtils.d("retry  D : 重试之前把将要重试是第几次回调回来");
+                        LogHelper.d("retry  D : 重试之前把将要重试是第几次回调回来");
                     }
 
                     @Override
@@ -84,12 +84,12 @@ public class DownLoadProxy {
 
                     @Override
                     protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        LogUtils.d("paused  D : 暂停下载");
+                        LogHelper.d("paused  D : 暂停下载");
                     }
 
                     @Override
                     protected void error(BaseDownloadTask task, Throwable e) {
-                        LogUtils.e("error  D : 下载出现错误");
+                        LogHelper.e("error  D : 下载出现错误");
                         if (mDownloadListener != null) {
                             mDownloadListener.error(task.getEx());
                         }
@@ -97,7 +97,7 @@ public class DownLoadProxy {
 
                     @Override
                     protected void warn(BaseDownloadTask task) {
-                        LogUtils.d("warn  D : 在下载队列中(正在等待/正在下载)已经存在相同下载连接与相同存储路径的任务");
+                        LogHelper.d("warn  D : 在下载队列中(正在等待/正在下载)已经存在相同下载连接与相同存储路径的任务");
                     }
                 }).start();
     }

@@ -3,7 +3,7 @@ package hubin.splash.utils;
 /*
  *  @项目名：  MahJongHall 
  *  @包名：    com.taiyao.mahjonghall.presenter.util
- *  @文件名:   ToastUtils
+ *  @文件名:   ToastHelper
  *  @创建者:   胡英姿
  *  @创建时间:  2017-06-21 9:49
  *  @描述：    toast 工具类 防止吐司队列过多时 不停的弹出
@@ -12,7 +12,7 @@ package hubin.splash.utils;
 import android.content.Context;
 import android.widget.Toast;
 
-public class ToastUtils {
+public class ToastHelper {
 
     private static Toast toast;
 

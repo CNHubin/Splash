@@ -8,7 +8,7 @@ import com.hubin.splash.retrofit.HttpProxy;
 import java.util.HashMap;
 
 import hubin.splash.BaseSplashActivity;
-import hubin.splash.utils.LogUtils;
+import hubin.splash.utils.LogHelper;
 
 import static com.hubin.splash.Config.APPID;
 import static com.hubin.splash.Config.URL_BASE;
@@ -43,7 +43,7 @@ public class MainActivity extends BaseSplashActivity {
     private HttpProxy.HttpListener<HttpResponse> mHttpListener = new HttpProxy.HttpListener<HttpResponse>() {
         @Override
         public void onHttpSuccess(HttpResponse bean) {
-            LogUtils.d("onHttpSuccess  D : 请求成功"+bean.response);
+            LogHelper.d("onHttpSuccess  D : 请求成功"+bean.response);
             mVersionInfo = bean.version;
             String  patchUrl = URL_DOWNLOAD_BASE + mVersionInfo.url; //补丁下载地址拼接
 
@@ -52,7 +52,7 @@ public class MainActivity extends BaseSplashActivity {
         }
         @Override
         public void onHttpFailure(String errorMsg) {
-            LogUtils.e("onHttpFailure E : 请求失败："+errorMsg);
+            LogHelper.e("onHttpFailure E : 请求失败："+errorMsg);
         }
     };
 
@@ -63,7 +63,7 @@ public class MainActivity extends BaseSplashActivity {
      */
     @Override
     protected void startDownLoad(boolean isContinue) {
-        LogUtils.d("startDownLoad  D : 开始下载："+isContinue);
+        LogHelper.d("startDownLoad  D : 开始下载："+isContinue);
     }
 
     /**
@@ -72,7 +72,7 @@ public class MainActivity extends BaseSplashActivity {
      */
     @Override
     protected void downProgress(int progress, int speed) {
-        LogUtils.d("progress  D : 下载进度："+progress+" 速度："+speed+"KB/s");
+        LogHelper.d("progress  D : 下载进度："+progress+" 速度："+speed+"KB/s");
     }
 
 
@@ -81,6 +81,6 @@ public class MainActivity extends BaseSplashActivity {
      */
     @Override
     protected void toNextPage() {
-        LogUtils.d("toNextPage  D : 准备去下一个页面");
+        LogHelper.d("toNextPage  D : 准备去下一个页面");
     }
 }

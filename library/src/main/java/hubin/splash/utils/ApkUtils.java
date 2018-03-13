@@ -23,7 +23,7 @@ public class ApkUtils {
         PackageManager pm = context.getPackageManager();
         try {
             PackageInfo info = pm.getPackageInfo(context.getPackageName(), 0);
-            LogUtils.d("getVersionCode  D : 当前版本号="+info.versionCode);
+            LogHelper.d("getVersionCode  D : 当前版本号="+info.versionCode);
             return info.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class ApkUtils {
         PackageManager pm = context.getPackageManager();
         try {
             PackageInfo info = pm.getPackageInfo(context.getPackageName(), 0);
-            LogUtils.d("getVersionCode  D : 当前版本="+info.versionName);
+            LogHelper.d("getVersionCode  D : 当前版本="+info.versionName);
             return info.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
